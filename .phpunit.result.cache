@@ -1,0 +1,1 @@
+{"version":1,"defects":{"FooTest::testProxyObjectCreatingEntities":4,"FooTest::testModifyingProxyOnArray":4},"times":{"FooTest::testProxyObjectCreatingEntities":0.096,"FooTest::testModifyingProxyOnArray":0.016}}
