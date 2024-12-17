@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Factory;
+namespace App\Factory\Embdes;
 
-use App\Entity\FooBar;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use App\Entity\Embeds\BazEmbed;
+use Zenstruck\Foundry\ObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<FooBar>
+ * @extends ObjectFactory<BazEmbed>
  */
-final class FooBarFactory extends PersistentProxyObjectFactory
+final class BazEmbeddFactory extends ObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +21,7 @@ final class FooBarFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return FooBar::class;
+        return BazEmbed::class;
     }
 
     /**
@@ -41,7 +41,7 @@ final class FooBarFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(FooBar $fooBar): void {})
+            // ->afterInstantiate(function(BazEmbed $bazEmbed): void {})
         ;
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
@@ -9,14 +12,15 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 #[Entity]
+#[ApiResource]
+#[Get]
+#[GetCollection]
 class Bar
 {
     #[Id, Column(type: UuidType::NAME)]
     private Uuid $id;
-    #[Column(type: 'text', nullable: true)]
-    private ?string $baz = null;
-    #[Column(type: 'json', options: ['default' => '[]'])]
-    private array $bazArr = [];
+    #[Column(type: 'bigint', nullable: false, options: ['default' => "0"])]
+    private ?string $baz = '0';
 
     public function getId(): Uuid
     {
@@ -37,17 +41,6 @@ class Bar
     {
         $this->baz = $baz;
 
-        return $this;
-    }
-
-    public function getBazArr(): array
-    {
-        return $this->bazArr;
-    }
-
-    public function setBazArr(array $bazArr): self
-    {
-        $this->bazArr = $bazArr;
         return $this;
     }
 }

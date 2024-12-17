@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Bar;
+use App\Factory\Embdes\BazEmbeddFactory;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -32,7 +33,7 @@ final class BarFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'baz'=>self::faker()->text()
+
         ];
     }
 
