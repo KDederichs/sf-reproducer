@@ -2,22 +2,24 @@
 
 namespace App\Tests;
 
-use App\Factory\BarFactory;
-use App\Factory\FooFactory;
+use App\Entity\Bar;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Zenstruck\Browser\Test\HasBrowser;
-use Zenstruck\Foundry\Test\Factories;
-use Zenstruck\Foundry\Test\ResetDatabase;
 
 class BarTest extends KernelTestCase
 {
-    use HasBrowser;
-    use Factories;
-    use ResetDatabase;
-
     public function testGetBar(): void
     {
-        $bar = BarFactory::createOne();
-        self::assertEquals($bar->getId(), $bar->getId());
+        $bar = new Bar();
+        /** @var EntityManagerInterface $em */
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($bar);
+        $em->flush();
+        $em->clear();
+        $bar2 = $em->getRepository(Bar::class)->find($bar->getId());
+        // cannot use UOW::recomputeSingleEntityChangeSet() here as it wrongly computes embedded objects as changed
+        $em->getUnitOfWork()->computeChangeSet($em->getClassMetadata(Bar::class), $bar2);
+        var_dump($em->getUnitOfWork()->getEntityChangeSet($bar2));
+        self::assertEmpty($em->getUnitOfWork()->getEntityChangeSet($bar2));
     }
 }
